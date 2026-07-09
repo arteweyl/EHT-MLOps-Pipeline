@@ -1,0 +1,16 @@
+{
+    "run_id": "run_1783161036",
+    "timestamp": "2026-07-04 07:30:36",
+    "status": "STAGING",
+    "metrics": {
+        "mse": 8.02697748507963e-08,
+        "ncc": 0.9678934525147578,
+        "fidelity_score": 0.9678934525147578
+    },
+    "fit_result": {
+        "estimated_mass_10_9": 6.5,
+        "estimated_spin": 0.5,
+        "fit_correlation": 0.9778466596818851
+    },
+    "promotion_log": "Model is valid, but fidelity score did not outperform current champion. Sent to Staging."
+}

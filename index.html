@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Caçador de Nebulosas: O Método de Messier & O Buraco Negro</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-bg"></div>
+    <div class="nebula-bg"></div>
+
+    <header class="app-header">
+        <div class="logo">
+            <i class="fa-solid fa-user-astronaut logo-icon"></i>
+            <div class="logo-text">
+                <h1>O Caçador de Nebulosas</h1>
+                <span>DIVULGAÇÃO CIENTÍFICA: MÉTODO MESSIER & BURACOS NEGROS</span>
+            </div>
+        </div>
+        <div class="header-info">
+            <span class="badge"><i class="fa-solid fa-circle-dot glow-dot"></i> Simulação Interativa</span>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- SEÇÃO ESQUERDA: O TELESCÓPIO -->
+        <section class="telescope-panel">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-eye"></i> Ocular do Telescópio</h2>
+                <div class="coordinate-display" id="coord-display">
+                    RA: 19h 53m 46s | DEC: +18° 46′ 45″
+                </div>
+            </div>
+
+            <!-- Ocular do Telescópio (Canvas circular) -->
+            <div class="eyepiece-container">
+                <div class="lens-glare"></div>
+                <div class="reticle-h"></div>
+                <div class="reticle-v"></div>
+                <div class="circle-degrees"></div>
+                <canvas id="telescope-canvas" width="600" height="600"></canvas>
+                <div class="mode-indicator" id="mode-badge">Modo: Telescópio Histórico (1781)</div>
+            </div>
+
+            <!-- Controles do Telescópio -->
+            <div class="controls-container">
+                <div class="control-group">
+                    <label class="control-label"><i class="fa-solid fa-crosshairs"></i> Selecionar Alvo</label>
+                    <div class="target-grid">
+                        <button class="target-btn active" data-target="starfield">
+                            <i class="fa-solid fa-border-none"></i> Campo Vazio
+                        </button>
+                        <button class="target-btn" data-target="comet">
+                            <i class="fa-solid fa-meteor"></i> Objeto Suspeito A
+                        </button>
+                        <button class="target-btn" data-target="m71">
+                            <i class="fa-solid fa-circle-nodes"></i> Objeto Suspeito B
+                        </button>
+                        <button class="target-btn" data-target="blackhole">
+                            <i class="fa-solid fa-circle"></i> Objeto Suspeito C
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <div class="control-group flex-1">
+                        <label class="control-label"><i class="fa-solid fa-calendar-days"></i> Noite de Observação</label>
+                        <div class="night-selector">
+                            <button class="night-btn active" data-night="1">Noite 1</button>
+                            <button class="night-btn" data-night="2">Noite 2</button>
+                            <button class="night-btn" data-night="3">Noite 3</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group flex-1">
+                        <label class="control-label"><i class="fa-solid fa-clock-rotate-left"></i> Era da Observação</label>
+                        <div class="era-selector">
+                            <button class="era-btn active" id="btn-era-messier">
+                                <i class="fa-solid fa-scroll"></i> Messier (1781)
+                            </button>
+                            <button class="era-btn" id="btn-era-modern">
+                                <i class="fa-solid fa-satellite"></i> Hubble (Moderno)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sliders dinâmicos adicionais -->
+                <div class="control-group slider-group disabled" id="mass-slider-container">
+                    <div class="slider-header">
+                        <label class="control-label"><i class="fa-solid fa-weight-hanging"></i> Massa do Buraco Negro</label>
+                        <span class="slider-value" id="mass-val">5 M<sub>☉</sub> (Massas Solares)</span>
+                    </div>
+                    <input type="range" min="1" max="15" value="5" step="0.5" class="app-slider" id="mass-slider">
+                </div>
+
+                <div class="control-group slider-group" id="noise-slider-container">
+                    <div class="slider-header">
+                        <label class="control-label"><i class="fa-solid fa-sliders"></i> Sensibilidade do Olho / Contraste</label>
+                        <span class="slider-value" id="noise-val">Média</span>
+                    </div>
+                    <input type="range" min="1" max="3" value="2" class="app-slider" id="noise-slider">
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DIREITA: O DIÁRIO DO ASTRÔNOMO / CIÊNCIA -->
+        <section class="notebook-panel">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="diary">
+                    <i class="fa-solid fa-book-open"></i> Diário de Messier
+                </button>
+                <button class="tab-btn" data-tab="science">
+                    <i class="fa-solid fa-graduation-cap"></i> Ciência Moderna
+                </button>
+                <button class="tab-btn" data-tab="catalog">
+                    <i class="fa-solid fa-folder-open"></i> Catálogo M
+                </button>
+                <button class="tab-btn" data-tab="mlops">
+                    <i class="fa-solid fa-wind"></i> Pipeline MLOps (Airflow)
+                </button>
+            </div>
+
+            <div class="tab-content active" id="tab-diary">
+                <div class="parchment">
+                    <div class="parchment-header">
+                        <h3>Registro de Observações</h3>
+                        <span class="date">Julho de 1781</span>
+                    </div>
+                    <div class="parchment-body">
+                        <p class="cursive">
+                            "Há tantas luzes nebulosas e difusas no firmamento que é fácil para um caçador de cometas ser enganado. Minha intenção é catalogar estes objetos imóveis para que não percamos tempo precioso."
+                        </p>
+                        <hr class="parchment-divider">
+                        
+                        <div class="instructions-box">
+                            <h4><i class="fa-solid fa-circle-info"></i> Sua Missão de Divulgação Científica:</h4>
+                            <ol>
+                                <li>Selecione um <strong>Objeto Suspeito (A, B ou C)</strong> no painel de controle do telescópio.</li>
+                                <li>Alterne entre as <strong>Noites 1, 2 e 3</strong> para verificar se o objeto se move em relação às estrelas de fundo.</li>
+                                <li>Se o objeto <strong>se mover</strong>, classifique-o como um cometa. Se ele estiver <strong>perfeitamente fixo</strong>, classifique-o como nebulosa/objeto Messier.</li>
+                            </ol>
+                        </div>
+
+                        <div class="analysis-box">
+                            <h4 id="analysis-title">Analisando: Campo Vazio</h4>
+                            <div class="analysis-controls">
+                                <p>Com base em suas observações das noites 1, 2 e 3, este objeto é móvel (cometa) ou fixo (nebulosa)?</p>
+                                <div class="btn-row">
+                                    <button class="action-btn btn-comet" id="btn-classify-comet"><i class="fa-solid fa-meteor"></i> É um Cometa!</button>
+                                    <button class="action-btn btn-nebula" id="btn-classify-nebula"><i class="fa-solid fa-star-of-david"></i> É Fixo (Nebulosa)</button>
+                                </div>
+                            </div>
+                            <div class="classification-result" id="classification-result">
+                                Selecione um alvo para iniciar a análise histórica.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-science">
+                <div class="modern-science">
+                    <h3><i class="fa-solid fa-atom"></i> Da Mancha Cinza à Relatividade Geral</h3>
+                    <p class="intro-p">
+                        No século XVIII, Charles Messier possuía telescópios refletores e refratores muito rudimentares. Para ele, qualquer objeto que não fosse uma estrela pontual ou um planeta aparecia apenas como uma "mancha difusa e acinzentada".
+                    </p>
+
+                    <div class="science-card">
+                        <div class="card-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+                        <div class="card-content">
+                            <h4>Messier 71 (M71)</h4>
+                            <p>O <strong>Objeto B</strong> é o Messier 71. Um aglomerado globular localizado na constelação de Sagitta, a cerca de 13.000 anos-luz da Terra. Messier o via como uma nuvem cinza e sem estrelas resolvidas. Hoje sabemos que é uma esfera compacta contendo dezenas de milhares de estrelas muito antigas.</p>
+                        </div>
+                    </div>
+
+                    <div class="science-card highlight">
+                        <div class="card-icon"><i class="fa-solid fa-circle-radiation"></i></div>
+                        <div class="card-content">
+                            <h4>O Buraco Negro (Objeto C / "M111")</h4>
+                            <p>O <strong>Objeto C</strong> é a simulação de um Buraco Negro Supermassivo! Na era de Messier, se ele apontasse para ele, veria apenas uma mancha cinza idêntica a uma nebulosa comum ou ao M71 (daí o mesmo método de recorte/aparência visual cinza borrada).</p>
+                            <p><strong>Ative o telescópio moderno (Hubble/Espacial)</strong> para ver o que realmente está lá! Você verá:</p>
+                            <ul>
+                                <li><strong>O Horizonte de Eventos:</strong> A esfera escura central de onde nada, nem a luz, escapa.</li>
+                                <li><strong>O Disco de Acreção:</strong> Matéria superaquecida girando em velocidades relativísticas.</li>
+                                <li><strong>Lenteamento Gravitacional:</strong> O espaço-tempo está tão curvado que a luz das estrelas atrás do buraco negro é distorcida, criando um <strong>Anel de Einstein</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="interactive-sandbox">
+                        <h4><i class="fa-solid fa-gamepad"></i> Experimento Interativo de Lenteamento</h4>
+                        <p>No modo <strong>Hubble (Moderno)</strong>, clique e arraste o Buraco Negro pela ocular para ver como ele distorce a luz das estrelas ao fundo. Mude a <strong>Massa do Buraco Negro</strong> no painel de controle e veja o anel de distorção aumentar!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-catalog">
+                <div class="catalog-gallery">
+                    <h3>Catálogo Comparativo de Messier</h3>
+                    <p>Veja como a astronomia evoluiu do desenho manual para a astrofotografia moderna:</p>
+
+                    <div class="carousel-container">
+                        <!-- Carrossel de Comparações -->
+                        <div class="catalog-item">
+                            <div class="catalog-item-header">
+                                <span>Aglomerado Globular M71</span>
+                            </div>
+                            <div class="comparison-grid">
+                                <div class="comparison-box">
+                                    <span class="label">Visão de Messier</span>
+                                    <div class="simulated-view m71-historical"></div>
+                                </div>
+                                <div class="comparison-box">
+                                    <span class="label">Visão Moderna</span>
+                                    <div class="simulated-view m71-modern"></div>
+                                </div>
+                            </div>
+                            <p class="description">Localizado na constelação de Sagitta. Descrito por Messier in 1781 como uma "nebulosa sem estrelas muito tênue".</p>
+                        </div>
+
+                        <div class="catalog-item">
+                            <div class="catalog-item-header">
+                                <span>Buraco Negro "M111" (Simulado)</span>
+                            </div>
+                            <div class="comparison-grid">
+                                <div class="comparison-box">
+                                    <span class="label">Visão de Messier</span>
+                                    <div class="simulated-view bh-historical"></div>
+                                </div>
+                                <div class="comparison-box">
+                                    <span class="label">Visão Moderna</span>
+                                    <div class="simulated-view bh-modern"></div>
+                                </div>
+                            </div>
+                            <p class="description">Um buraco negro supermassivo isolado. No telescópio de Messier, a distorção da luz das estrelas adjacentes apenas criaria um borrão nebuloso cinza indistinguível de um aglomerado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-mlops">
+                <div class="mlops-pipeline">
+                    <h3><i class="fa-solid fa-wind"></i> Replicação Didática EHT no Apache Airflow</h3>
+                    <p class="intro-p" style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--text-muted);">
+                        Mapeamos o fluxo de trabalho científico do EHT (Event Horizon Telescope, 2019) para imageamento do buraco negro M87* em um pipeline MLOps automatizado no Airflow. Acompanhe a execução didática de calibração de dados VLBI, reconstrução RML e ajuste de parâmetros GRMHD.
+                    </p>
+
+                    <!-- Painel de Controle do Airflow -->
+                    <div class="airflow-control-panel">
+                        <div class="airflow-status-header">
+                            <div class="dag-info">
+                                <span class="dag-label">DAG ID:</span>
+                                <span class="dag-id">eht_m87_imaging_pipeline</span>
+                            </div>
+                            <div class="dag-status">
+                                <span class="status-badge status-idle" id="dag-status-badge">OCIOSO</span>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-airflow-run" id="btn-run-dag">
+                            <i class="fa-solid fa-play"></i> Disparar DAG Run
+                        </button>
+                    </div>
+
+                    <!-- Representação Visual do DAG -->
+                    <div class="dag-visual-graph">
+                        <div class="dag-node" id="node-ingest" data-task="ingest_vlbi_data">
+                            <div class="node-status-dot"></div>
+                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                            <span class="node-name">ingest_vlbi_data</span>
+                        </div>
+                        <div class="dag-edge"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="dag-node" id="node-calibrate" data-task="calibrate_data">
+                            <div class="node-status-dot"></div>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span class="node-name">calibrate_data</span>
+                        </div>
+                        <div class="dag-edge"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="dag-node" id="node-reconstruct" data-task="reconstruct_image">
+                            <div class="node-status-dot"></div>
+                            <i class="fa-solid fa-rotate"></i>
+                            <span class="node-name">reconstruct_image</span>
+                        </div>
+                        <div class="dag-edge"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="dag-node" id="node-evaluate" data-task="evaluate_reconstruction">
+                            <div class="node-status-dot"></div>
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span class="node-name">evaluate_recon</span>
+                        </div>
+                        <div class="dag-edge"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="dag-node" id="node-register" data-task="register_model_and_deploy">
+                            <div class="node-status-dot"></div>
+                            <i class="fa-solid fa-box-archive"></i>
+                            <span class="node-name">register_and_deploy</span>
+                        </div>
+                    </div>
+
+                    <!-- Detalhes do Step Executando -->
+                    <div class="step-detail-card" id="step-detail-panel">
+                        <div class="step-detail-header">
+                            <h4 id="step-title"><i class="fa-solid fa-circle-info"></i> Painel do Pipeline Airflow</h4>
+                            <span class="paper-ref" id="step-ref">Ref: Event Horizon Telescope Collaboration (2019)</span>
+                        </div>
+                        <div class="step-detail-body">
+                            <div class="step-desc-wrapper">
+                                <p id="step-desc" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                                    Dispare o pipeline acima para ver as tarefas executarem em tempo real. Cada estágio gera produtos científicos reais de VLBI e validações físicas que alimentam o Model Registry do MLOps.
+                                </p>
+                                <div class="step-interactive-visual" id="step-visual-container">
+                                    <div class="placeholder-visual" id="step-placeholder">
+                                        <i class="fa-solid fa-wind" style="font-size: 3.5rem; color: rgba(56, 189, 248, 0.2); margin-bottom: 1rem;"></i>
+                                        <p style="color: var(--text-muted); font-size: 0.85rem;">Pronto para iniciar o DAG Run do Airflow.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model Registry / Runs Histórico -->
+                    <div class="model-registry-section">
+                        <h4><i class="fa-solid fa-table-list"></i> Model Registry (Registro de Modelos)</h4>
+                        <div class="table-wrapper">
+                            <table class="registry-table" id="registry-runs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Run ID</th>
+                                        <th>Fidelidade (NCC)</th>
+                                        <th>Massa Est. (M☉)</th>
+                                        <th>Spin Est. (a)</th>
+                                        <th>Status do Gate</th>
+                                        <th>Status Deploy</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="registry-table-body">
+                                    <tr class="empty-row" id="empty-registry-row">
+                                        <td colspan="6" style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 1rem;">Nenhum pipeline foi executado nesta sessão.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 Simulador de Caça a Cometas & Buracos Negros. Criado para fins de Divulgação Científica e Ensino de Astronomia.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

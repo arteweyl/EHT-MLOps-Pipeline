@@ -1,0 +1,189 @@
+{
+    "runs": [
+        {
+            "run_id": "run_1783160342",
+            "timestamp": "2026-07-04 07:19:02",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 1.284404010185883e-06,
+                "ncc": -0.047638814425952684,
+                "fidelity_score": 0.0
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 5.5,
+                "estimated_spin": -0.94,
+                "fit_correlation": -0.016031522625074533
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160342_reconstructed.npy",
+            "status": "FAILED_VALIDATION",
+            "promotion_log": "Failed MLOps quality gates (reconstruction fidelity or physics constraint check)."
+        },
+        {
+            "run_id": "run_1783160385",
+            "timestamp": "2026-07-04 07:19:45",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 1.2307119532444795e-06,
+                "ncc": 0.14619282389606422,
+                "fidelity_score": 0.14619282389606422
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.0,
+                "estimated_spin": 0.0,
+                "fit_correlation": 0.15948570843132667
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160385_reconstructed.npy",
+            "status": "FAILED_VALIDATION",
+            "promotion_log": "Failed MLOps quality gates (reconstruction fidelity or physics constraint check)."
+        },
+        {
+            "run_id": "run_1783160414",
+            "timestamp": "2026-07-04 07:20:14",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 1.2386945645647796e-06,
+                "ncc": 0.122788931262774,
+                "fidelity_score": 0.122788931262774
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.0,
+                "estimated_spin": 0.0,
+                "fit_correlation": 0.13105492745845979
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160414_reconstructed.npy",
+            "status": "FAILED_VALIDATION",
+            "promotion_log": "Failed MLOps quality gates (reconstruction fidelity or physics constraint check)."
+        },
+        {
+            "run_id": "run_1783160507",
+            "timestamp": "2026-07-04 07:21:47",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 8.525213431723287e-08,
+                "ncc": 0.965825178713687,
+                "fidelity_score": 0.965825178713687
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.5,
+                "estimated_spin": 0.5,
+                "fit_correlation": 0.9756711446493277
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160507_reconstructed.npy",
+            "status": "ARCHIVED",
+            "promotion_log": "No active production model found. Promoted automatically."
+        },
+        {
+            "run_id": "run_1783160657",
+            "timestamp": "2026-07-04 07:24:17",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 7.203027975197491e-08,
+                "ncc": 0.9712903904843746,
+                "fidelity_score": 0.9712903904843746
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.5,
+                "estimated_spin": 0.5,
+                "fit_correlation": 0.9812306334350844
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160657_reconstructed.npy",
+            "status": "PRODUCTION",
+            "promotion_log": "Fidelity score (0.9713) is higher than current champion (0.9658). Promoted."
+        },
+        {
+            "run_id": "run_1783160952",
+            "timestamp": "2026-07-04 07:29:12",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 7.998144207873094e-08,
+                "ncc": 0.9684883094769249,
+                "fidelity_score": 0.9684883094769249
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.5,
+                "estimated_spin": 0.5,
+                "fit_correlation": 0.9811792216369833
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160952_reconstructed.npy",
+            "status": "STAGING",
+            "promotion_log": "Model is valid, but fidelity score did not outperform current champion. Sent to Staging."
+        },
+        {
+            "run_id": "run_1783160990",
+            "timestamp": "2026-07-04 07:29:50",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 8.655339830476222e-08,
+                "ncc": 0.9651044992760567,
+                "fidelity_score": 0.9651044992760567
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.5,
+                "estimated_spin": 0.5,
+                "fit_correlation": 0.9748318644165388
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783160990_reconstructed.npy",
+            "status": "STAGING",
+            "promotion_log": "Model is valid, but fidelity score did not outperform current champion. Sent to Staging."
+        },
+        {
+            "run_id": "run_1783161036",
+            "timestamp": "2026-07-04 07:30:36",
+            "parameters": {
+                "alpha_tv": 0.05,
+                "alpha_entropy": 0.005,
+                "observation_date": "2026-07-04",
+                "calibration_method": "Phase-Self-Cal"
+            },
+            "metrics": {
+                "mse": 8.02697748507963e-08,
+                "ncc": 0.9678934525147578,
+                "fidelity_score": 0.9678934525147578
+            },
+            "fit_result": {
+                "estimated_mass_10_9": 6.5,
+                "estimated_spin": 0.5,
+                "fit_correlation": 0.9778466596818851
+            },
+            "model_artifact_path": "/mnt/c/Users/lcwey/projetos_pessoais/buraco_negro/eht_mlops_pipeline/registered_models/run_1783161036_reconstructed.npy",
+            "status": "STAGING",
+            "promotion_log": "Model is valid, but fidelity score did not outperform current champion. Sent to Staging."
+        }
+    ],
+    "active_production_model": "run_1783160657"
+}
